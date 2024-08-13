@@ -1,0 +1,36 @@
+﻿@* file Views/Account/Users.cshtml *@
+@* Страница зарегистрированныз игроков *@
+@{
+    ViewBag.Title = "Registered Users";
+}
+<h2>Registered Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Email</th>
+            <th>Login</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.City</td>
+                <td>@user.Country</td>
+                <td>@user.Email</td>
+                <td>@user.Login</td>
+                <td>@user.Password</td>
+            </tr>
+        }
+    </tbody>
+</table>

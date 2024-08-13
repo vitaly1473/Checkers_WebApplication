@@ -1,0 +1,72 @@
+﻿@* file Views/Account/Game.cshtml *@
+@* Страница с формой игры *@
+
+
+@{
+    ViewData["Title"] = "Game";
+    var login = ViewBag.Login;
+}
+
+@* представление Game  использует ViewBag.Login *@
+<h2>Welcome to the Game! @ViewBag.Login!</h2>
+<p>You are now logged in.</p>
+<link rel="stylesheet" href="~/css/styles.css">
+<script src="~/js/script.js"></script>
+
+<div>
+    <button id="startGameBtn" onclick="startGame()">Start Game</button>
+   
+    <div id="countdown" style="display:none; margin-top: 20px;">
+        <p>Time left: <span id="timer" class="timer">01:00</span></p>
+    </div>
+</div>
+<div id="board-container">
+    
+    <div class="col-labels">  </div> <!-- метки колонок -->
+    <div class="row-labels"></div> <!-- метки строк -->
+    <div id="board"></div> <!--  доска 1-->
+   
+</div>
+@* <p> 2 доска  </p> 
+<div id="board0">   <!-- ячейки доски -->   </div> *@
+
+
+<script> /* скрипт для запуска таймера */
+    function startGame() {
+        document.getElementById("startGameBtn").style.display = "none";
+        document.getElementById("countdown").style.display = "block";
+
+        var totalTime = 60; // время в секундах
+        var timerElement = document.getElementById("timer");
+
+        function updateTimerDisplay(time) {
+            var minutes = Math.floor(time / 60);
+            var seconds = time % 60;
+
+            // форматируем время в мм:сс
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            timerElement.textContent = minutes + ':' + seconds;
+        }
+
+        var countdown = setInterval(function () {
+            if (totalTime <= 0) {
+                clearInterval(countdown);
+                determineWinner();
+            } else {
+                updateTimerDisplay(totalTime);
+                totalTime--;
+            }
+        }, 1000);
+    }
+    /* функция для определения случайного победителя */
+    function determineWinner() {
+        var winner = Math.random() < 0.5 ? 'White' : 'Black';
+        alert("Time's up! The winner is " + winner + "!");
+        document.getElementById("startGameBtn").style.display = "block";
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("timer").textContent = '01:00'; // сбрасываем таймер на начальное значение
+    }
+</script>
+

@@ -1,0 +1,25 @@
+﻿@* file Views/Account/Register.cshtml *@
+
+@{
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post" class="registration-form">
+    <div>
+        <label class="control-label">Login</label>
+        <input name="login" class="form-control"/>
+    </div>
+    <div>
+        <label class="control-label">Password</label>
+        <input name="password" type="password" class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        <p>@ViewData.ModelState[""].Errors.FirstOrDefault()?.ErrorMessage</p>
+    </div>
+}

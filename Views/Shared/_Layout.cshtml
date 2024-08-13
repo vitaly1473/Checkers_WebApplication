@@ -1,0 +1,104 @@
+﻿<!-- add to folder Home/Shared файл _Layout.cshtml    -->
+<!-- файл _Layout.cshtml со стилями и ссылками для главной страницы -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Checkers_WebApplication</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Checkers_WebApplication.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="styles.css">
+
+     <style>
+        
+        body {
+            display: flex; /* Flexbox для обеспечения растяжения содержимого и прижатия подвала к низу */
+            flex-direction: column; /* устанавливаем направление flex-контейнера на колонку */
+            min-height: 100vh; /* высота 100% от высоты окна просмотра */
+            margin: 0 15px;
+            padding: 5px 10px 0;
+            /*background-color: rgb(240, 240, 240); /* серый цвет, фон всей страницы */
+            background-color: rgb(135, 160, 245);
+            font-family: Verdana, sans-serif; /* стиль шрифта Verdana без засечек */
+            font-size: 16px;
+            color: black; /* цвет текста */
+        }
+
+        .container {
+            flex: 1; /* Контейнер будет растягиваться, занимая все доступное пространство */
+            padding: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f1f1f1;
+            width: 100%;
+            margin-top: auto; /* прижимаем footer к низу */
+        }
+
+    </style>
+
+</head>
+<body>
+    <h2>@ViewBag.Title</h2> <!-- Здесь задается значение ViewBag.Title, которое применяется на мастер-странице для вывода заголовка -->
+    <div> <!-- ссылки на страницы приложения: -->
+        <a href="/">Home</a> | 
+        <a href="/Home/About"> History checkers </a> |
+        <a href="/Account/Register"> Registration </a> |
+        <a href="/Account/Login"> Login </a> |
+       <!-- <a href="/Account/Users"> Registered Users </a> | -->
+       <!--  <a href="/Account/Game"> Game </a> |   -->
+        @if (User.Identity.IsAuthenticated)    @* ссылки на страницы откроются только авторизованным пользователям *@
+        {
+            <a href="/Account/Game"> Game |</a> <!-- ссылка на страницу Game -->
+            <a href="/Account/Logout">Logout </a> <!-- ссылка на выход, даём пользователю возможность выйти из системы авторизации  -->
+        }
+       
+    </div>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Checkers_WebApplication</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; - Checkers Club - @DateTime.Now.Year. All rights reserved
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
